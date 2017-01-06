@@ -17,6 +17,9 @@ class Country(models.Model):
     category            = models.CharField(max_length=20, choices=CATEGORIES, blank=True)
     currency            = models.CharField(max_length=3, choices=CURRENCIES, blank=True)
 
+    def __unicode__(self):
+        return self.get_name_display()
+
     class Meta:
         ordering    = ('name',)
         app_label   = 'api'

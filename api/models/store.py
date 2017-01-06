@@ -25,6 +25,9 @@ class Store(models.Model):
     website             = models.URLField(blank=True)
     facebook            = models.URLField(blank=True)
 
+    def __unicode__(self):
+        return self.name
+        
     class Meta:
         ordering    = ('name',)
         app_label   = 'api'
