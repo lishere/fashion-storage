@@ -3,6 +3,7 @@
 
 from django.db import models
 from api.models.country import Country
+from api.models.invoice_address import Invoice_address
 
 class Store(models.Model):
 
@@ -24,10 +25,14 @@ class Store(models.Model):
     commission_rate     = models.IntegerField(default=50, blank=True)
     website             = models.URLField(blank=True)
     facebook            = models.URLField(blank=True)
+    invoice_address     = models.ForeignKey(Invoice_address, default=1, blank=True)
+    # shipping address
+    # stock
+    # contact person
 
     def __unicode__(self):
         return self.name
-        
+
     class Meta:
         ordering    = ('name',)
         app_label   = 'api'
