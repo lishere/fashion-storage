@@ -1,9 +1,9 @@
-
 # -*- coding: utf-8 -*-
 
 from django.db import models
 from api.models.country import Country
 from api.models.invoice_address import Invoice_address
+from api.models.shipping_address import Shipping_address
 
 class Store(models.Model):
 
@@ -22,6 +22,7 @@ class Store(models.Model):
     country             = models.ForeignKey(Country, blank=True)
 
     invoice_address     = models.ForeignKey(Invoice_address, default=1, blank=True)
+    shipping_address     = models.ForeignKey(Shipping_address, default=1, blank=True)
 
     shipping_agrement   = models.CharField(max_length=20, default='split', choices=SHIPPING_AGREMENTS, blank=True)
     partner_type        = models.CharField(max_length=20, choices=PARTNER_TYPES, blank=True)
@@ -33,7 +34,6 @@ class Store(models.Model):
     instagram           = models.URLField(max_length=250, blank=True)
     pinterest           = models.URLField(max_length=250, blank=True)
 
-    # shipping address
     # stock
 
     def __unicode__(self):
