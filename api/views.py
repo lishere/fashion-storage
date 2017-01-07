@@ -9,6 +9,9 @@ from api.models.shipping_address import Shipping_address, Shipping_address_seria
 from api.models.invoice_address import Invoice_address, Invoice_address_serializer
 from api.models.person import Person, Person_serializer
 from api.models.note import Note, Note_serializer
+from api.models.product import Product, Product_serializer
+from api.models.product_variant import Product_variant, Product_variant_serializer
+from api.models.image import Image, Image_serializer
 
 """
 API endpoints
@@ -40,3 +43,15 @@ class PersonViewSet(viewsets.ModelViewSet):
 class NoteViewSet(viewsets.ModelViewSet):
     queryset = Note.objects.all().order_by('created')
     serializer_class = Note_serializer
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all().order_by('created')
+    serializer_class = Product_serializer
+
+class ProductVariantViewSet(viewsets.ModelViewSet):
+    queryset = Product_variant.objects.all().order_by('created')
+    serializer_class = Product_variant_serializer
+
+class ImageViewSet(viewsets.ModelViewSet):
+    queryset = Image.objects.all().order_by('created')
+    serializer_class = Image_serializer

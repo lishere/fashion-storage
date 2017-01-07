@@ -10,6 +10,9 @@ from .models.invoice_address import Invoice_address
 from .models.shipping_address import Shipping_address
 from .models.person import Person
 from .models.customer import Customer
+from .models.product import Product
+from .models.image import Image
+from .models.product_variant import Product_variant
 
 
 class NoteInline(GenericTabularInline):
@@ -38,11 +41,25 @@ class PersonAdmin(admin.ModelAdmin):
         NoteInline,
     ]
 
+class ImageAdmin(admin.ModelAdmin):
+    inlines = [
+        NoteInline,
+    ]
+
 class CustomerAdmin(admin.ModelAdmin):
     inlines = [
         NoteInline,
     ]
 
+class ProductAdmin(admin.ModelAdmin):
+    inlines = [
+        NoteInline,
+    ]
+
+class ProductVariantAdmin(admin.ModelAdmin):
+    inlines = [
+        NoteInline,
+    ]
 
 admin.site.register(Country)
 admin.site.register(Store, StoreAdmin)
@@ -51,3 +68,6 @@ admin.site.register(Invoice_address, InvoiceAddressAdmin)
 admin.site.register(Shipping_address, ShippingAddressAdmin)
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Customer, CustomerAdmin)
+admin.site.register(Product, ProductAdmin)
+admin.site.register(Product_variant, ProductVariantAdmin)
+admin.site.register(Image, ImageAdmin)

@@ -21,18 +21,20 @@ class Country(models.Model):
         return self.get_name_display()
 
     class Meta:
-        ordering    = ('name',)
-        app_label   = 'api'
-        verbose_name = 'Country'
+        ordering            = ('name',)
+        app_label           = 'api'
+        verbose_name        = 'Country'
         verbose_name_plural = 'Countries'
 
 
 class Country_serializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Country
-        fields = ('created',
-                  'updated',
-                  'name',
-                  'vat_rate',
-                  'category',
-                  'currency')
+        fields = (
+                    'created',
+                    'updated',
+                    'name',
+                    'vat_rate',
+                    'category',
+                    'currency'
+                 )
