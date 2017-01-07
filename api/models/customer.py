@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from rest_framework import serializers
 
 from api.models.country import Country
 
@@ -40,3 +41,34 @@ class Customer(models.Model):
     class Meta:
         ordering    = ('given_name','surname',)
         app_label   = 'api'
+        verbose_name = 'Customer'
+
+        verbose_name_plural = 'Customers'
+
+
+class Customer_serializer(serializers.HyperlinkedModelSerializer):
+
+    def __unicode__(self):
+        return self.id
+
+    class Meta:
+        model = Customer
+        fields = ('created',
+                  'updated',
+                  'is_active',
+                  'items_bought',
+                  'wants_newsletter',
+                  'language',
+                  'gender',
+                  'given_name',
+                  'surname',
+                  'phone',
+                  'email',
+                  'address',
+                  'zip_code',
+                  'city',
+                  'country',
+                  'facebook',
+                  'twitter',
+                  'instagram',
+                  'pinterest')

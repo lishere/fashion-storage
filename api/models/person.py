@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from rest_framework import serializers
+
 
 class Person(models.Model):
 
@@ -28,3 +30,27 @@ class Person(models.Model):
     class Meta:
         ordering    = ('given_name','surname',)
         app_label   = 'api'
+        verbose_name = 'Person'
+        verbose_name_plural = 'Persons'
+
+
+class Person_serializer(serializers.HyperlinkedModelSerializer):
+
+    def __unicode__(self):
+        return self.id
+
+    class Meta:
+        model = Person
+        fields = ('created',
+                  'updated',
+                  'is_active',
+                  'language',
+                  'partner_type',
+                  'language',
+                  'gender',
+                  'given_name',
+                  'surname',
+                  'phone_1',
+                  'phone_2',
+                  'email_1',
+                  'email_2')

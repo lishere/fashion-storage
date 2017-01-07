@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from rest_framework import serializers
+
 from api.models.country import Country
 from api.models.person import Person
 
@@ -25,3 +27,24 @@ class Shipping_address(models.Model):
     class Meta:
         ordering    = ('recipient',)
         app_label   = 'api'
+        verbose_name = 'Shipping address'
+        verbose_name_plural = 'Shipping addresses'
+
+
+class Shipping_address_serializer(serializers.HyperlinkedModelSerializer):
+
+    def __unicode__(self):
+        return self.id
+
+    class Meta:
+        model = Shipping_address
+        fields = ('created',
+                  'updated',
+                  'is_active',
+                  'recipient',
+                  'contact_person',
+                  'address',
+                  'addition_to_address',
+                  'zip_code',
+                  'city',
+                  'country')

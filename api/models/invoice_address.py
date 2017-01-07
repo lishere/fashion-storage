@@ -1,7 +1,8 @@
-
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from rest_framework import serializers
+
 from api.models.country import Country
 from api.models.person import Person
 
@@ -27,3 +28,25 @@ class Invoice_address(models.Model):
     class Meta:
         ordering    = ('recipient',)
         app_label   = 'api'
+        verbose_name = 'Invoice address'
+        verbose_name_plural = 'Invoice addresses'
+
+
+class Invoice_address_serializer(serializers.HyperlinkedModelSerializer):
+
+    def __unicode__(self):
+        return self.id
+
+    class Meta:
+        model = Invoice_address
+        fields = ('created',
+                  'updated',
+                  'is_active',
+                  'recipient',
+                  'contact_person',
+                  'address',
+                  'zip_code',
+                  'city',
+                  'country',
+                  'vat_number',
+                  'tax_number')

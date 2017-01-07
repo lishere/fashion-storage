@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from rest_framework import serializers
+
 from api.models.country import Country
 from api.models.invoice_address import Invoice_address
 from api.models.shipping_address import Shipping_address
+
 
 class Store(models.Model):
 
@@ -42,3 +45,28 @@ class Store(models.Model):
     class Meta:
         ordering    = ('name',)
         app_label   = 'api'
+        verbose_name = 'Store'
+        verbose_name_plural = 'Stores'
+
+class Store_serializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Store
+        fields = ('created',
+                  'updated',
+                  'is_active',
+                  'is_online_shop',
+                  'name',
+                  'address',
+                  'zip_code',
+                  'city',
+                  'country',
+                  'invoice_address',
+                  'shipping_address',
+                  'shipping_agrement',
+                  'partner_type',
+                  'commission_rate',
+                  'website',
+                  'facebook',
+                  'pinterest',
+                  'instagram',
+                  'twitter')
