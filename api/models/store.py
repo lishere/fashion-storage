@@ -4,7 +4,6 @@
 from django.db import models
 from api.models.country import Country
 from api.models.invoice_address import Invoice_address
-#from api.models.person import Person
 
 class Store(models.Model):
 
@@ -17,7 +16,6 @@ class Store(models.Model):
     is_online_shop      = models.BooleanField(default=False, blank=True)
 
     name                = models.CharField(max_length=250, blank=False)
-    #contact_person      = models.ForeignKey(Person, default=1, blank=True)
     address             = models.CharField(max_length=125, blank=True)
     zip_code            = models.CharField(max_length=50, blank=True)
     city                = models.CharField(max_length=50, blank=False)
