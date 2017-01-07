@@ -3,6 +3,7 @@
 
 from django.db import models
 from api.models.country import Country
+from api.models.person import Person
 
 
 class Invoice_address(models.Model):
@@ -11,9 +12,8 @@ class Invoice_address(models.Model):
     updated             = models.DateTimeField(auto_now_add=True, blank=True)
     is_active           = models.BooleanField(default=True, blank=True)
 
-    name                = models.CharField(max_length=250, blank=False)
     recipient           = models.CharField(max_length=250, blank=False)
-    # contact person
+    contact_person      = models.ForeignKey(Person, default=1, blank=True)
     address             = models.CharField(max_length=125, blank=True)
     zip_code            = models.CharField(max_length=50, blank=True)
     city                = models.CharField(max_length=50, blank=False)
@@ -22,8 +22,8 @@ class Invoice_address(models.Model):
     tax_number          = models.CharField(max_length=250, blank=True)
 
     def __unicode__(self):
-        return self.get_name_display()
+        return '%s, %s' % (self.recipient, self.city)
 
     class Meta:
-        ordering    = ('name',)
+        ordering    = ('recipient',)
         app_label   = 'api'

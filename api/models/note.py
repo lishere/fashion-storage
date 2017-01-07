@@ -14,5 +14,5 @@ class Note(models.Model):
     # user
 
     class Meta:
-        ordering    = ('created',)
+        ordering    = ('-created',)
         app_label   = 'api'

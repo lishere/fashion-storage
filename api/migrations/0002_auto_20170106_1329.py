@@ -33,9 +33,4 @@ class Migration(migrations.Migration):
                 'ordering': ('name',),
             },
         ),
-        migrations.AddField(
-            model_name='store',
-            name='invoice_address',
-            field=models.ForeignKey(blank=True, default=1, on_delete=django.db.models.deletion.CASCADE, to='api.Invoice_address'),
-        ),
     ]
