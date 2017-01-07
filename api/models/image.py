@@ -18,7 +18,7 @@ class Image(models.Model):
     photographer    = models.CharField(max_length=50, blank=True)
 
     def __unicode__(self):
-        return '%s %s' % (self.given_name, self.surname)
+        return self.name
 
     class Meta:
         ordering            = ('created',)
