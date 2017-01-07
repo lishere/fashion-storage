@@ -12,6 +12,7 @@ class Image(models.Model):
     updated         = models.DateTimeField(auto_now_add=True, blank=True)
     is_active       = models.BooleanField(default=True, blank=True)
 
+    name            = models.CharField(max_length=50, blank=False)
     image           = models.ImageField(upload_to='images', blank=True)
     perspective     = models.CharField(max_length=10, choices=PERSPECTIVES, blank=True)
     photographer    = models.CharField(max_length=50, blank=True)
@@ -37,6 +38,7 @@ class Image_serializer(serializers.HyperlinkedModelSerializer):
                     'is_active',
                     'created',
                     'updated',
+                    'name',
                     'image',
                     'perspective',
                     'photographer'

@@ -15,6 +15,11 @@ class Product_variant(models.Model):
 
     # product
     # images
+
+    rec_gross_sale_price_default    = models.DecimalField(max_digits=6, decimal_places=2, blank=True, verbose_name='Recommended default gross sale price')
+    # rec_gross_sale_price_by_country
+    size                            = models.CharField(max_length=6, default='m', choices=SIZES, blank=True)
+
     name_en                         = models.CharField(max_length=50, blank=False, verbose_name='English name')
     name_de                         = models.CharField(max_length=50, blank=True, verbose_name='German name')
     name_it                         = models.CharField(max_length=50, blank=True, verbose_name='Italian name')
@@ -25,9 +30,6 @@ class Product_variant(models.Model):
     care_instructions_en            = models.TextField(max_length=250, blank=True, verbose_name='English care instructions')
     care_instructions_it            = models.TextField(max_length=250, blank=True, verbose_name='Italian care instructions')
 
-    rec_gross_sale_price_default    = models.DecimalField(max_digits=6, decimal_places=2, blank=True, verbose_name='Recommended default gross sale price')
-    # rec_gross_sale_price_by_country
-    size                            = models.CharField(max_length=6, default='m', choices=SIZES, blank=True)
     color_1                         = models.CharField(max_length=50, blank=False, verbose_name='Main color')
     color_2                         = models.CharField(max_length=50, blank=True, verbose_name='2nd color')
     color_3                         = models.CharField(max_length=50, blank=True, verbose_name='3rd color')
