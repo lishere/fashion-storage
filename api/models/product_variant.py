@@ -3,6 +3,8 @@
 from django.db import models
 from rest_framework import serializers
 
+from api.models.image import Image
+
 
 class Product_variant(models.Model):
 
@@ -14,9 +16,9 @@ class Product_variant(models.Model):
     is_organic                      = models.BooleanField(default=False, blank=False, verbose_name="Organic")
 
     # product
-    # images
+    images                          = models.ManyToManyField(Image, blank=True)
 
-    rec_gross_sale_price_default    = models.DecimalField(max_digits=6, decimal_places=2, blank=True, verbose_name='Recommended default gross sale price')
+    rec_gross_sale_price_default    = models.DecimalField(default=0, max_digits=6, decimal_places=2, blank=True, verbose_name='Recommended default gross sale price')
     # rec_gross_sale_price_by_country
     size                            = models.CharField(max_length=6, default='m', choices=SIZES, blank=True)
 
@@ -39,11 +41,11 @@ class Product_variant(models.Model):
     fabric_3                        = models.CharField(max_length=50, blank=True, verbose_name='3rd fabric')
     fabric_4                        = models.CharField(max_length=50, blank=True, verbose_name='4th fabric')
     fabric_1_percentage             = models.IntegerField(default=100, blank=True, verbose_name='Percentage main fabric', help_text='Percentage of the main fabric in %')
-    fabric_2_percentage             = models.IntegerField(blank=True, verbose_name='Percentage 2nd fabric', help_text='Percentage of 2nd fabric in %')
-    fabric_3_percentage             = models.IntegerField(blank=True, verbose_name='Percentage 3rd fabric', help_text='Percentage of 3rd fabric in %')
-    fabric_4_percentage             = models.IntegerField(blank=True, verbose_name='Percentage 4th fabric', help_text='Percentage of 4th fabric in %')
-    weight                          = models.SmallIntegerField(blank=True, help_text='Product weight in grams')
-    surface_weight                  = models.SmallIntegerField(blank=True, help_text='Product surface weight in grams/m²')
+    fabric_2_percentage             = models.IntegerField(default=0, blank=True, verbose_name='Percentage 2nd fabric', help_text='Percentage of 2nd fabric in %')
+    fabric_3_percentage             = models.IntegerField(default=0, blank=True, verbose_name='Percentage 3rd fabric', help_text='Percentage of 3rd fabric in %')
+    fabric_4_percentage             = models.IntegerField(default=0, blank=True, verbose_name='Percentage 4th fabric', help_text='Percentage of 4th fabric in %')
+    weight                          = models.SmallIntegerField(default=0, blank=True, help_text='Product weight in grams')
+    surface_weight                  = models.SmallIntegerField(default=0, blank=True, help_text='Product surface weight in grams/m²')
 
     def __unicode__(self):
         return self.name_en
