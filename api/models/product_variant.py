@@ -69,6 +69,7 @@ class Product_variant_serializer(serializers.HyperlinkedModelSerializer):
                   'updated',
                   'is_active',
                   'is_organic',
+                  'images',
                   'name_en', 'name_de', 'name_it',
                   'description_de', 'description_en', 'description_it',
                   'care_instructions_de', 'care_instructions_en', 'care_instructions_it',
