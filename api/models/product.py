@@ -6,7 +6,7 @@ from rest_framework import serializers
 
 class Product(models.Model):
 
-    PRODUCT_TYPES   = (('coat','Coat'),('dress','Dress'),('jacket','Jacket'),('longsleeve','Longsleeve'),('pullover','Pullover'),('shirt','Shirt'),('skirt','Skirt'),('trousers','Trousers'),)
+    PRODUCT_TYPES   = (('coat','Coat'),('dress','Dress'),('jacket','Jacket'),('longsleeve','Longsleeve'),('pullover','Pullover'),('shirt','Shirt'),('skirt','Skirt'),('trousers','Trousers'),('other','Other'))
     GENDER          = (('women','Women'),('men','Men'),('unisex','unisex'),)
 
     created             = models.DateTimeField(auto_now_add=True, blank=False)
@@ -14,6 +14,7 @@ class Product(models.Model):
     is_active           = models.BooleanField(default=True, blank=True)
 
     name                = models.CharField(max_length=50, blank=False)
+    type                = models.CharField(max_length=50, choices=PRODUCT_TYPES, blank=False)
     target_group        = models.CharField(max_length=6, default='unisex', choices=GENDER, blank=False)
     description_de      = models.TextField(max_length=500, blank=True, verbose_name='German description')
     description_en      = models.TextField(max_length=500, blank=True, verbose_name='English description')
@@ -41,6 +42,7 @@ class Product_serializer(serializers.HyperlinkedModelSerializer):
                   'updated',
                   'is_active',
                   'name',
+                  'type',
                   'target_group',
                   'description_de',
                   'description_en',

@@ -25,7 +25,7 @@ class Store(models.Model):
     country             = models.ForeignKey(Country, blank=True)
 
     invoice_address     = models.ForeignKey(Invoice_address, default=1, blank=True)
-    shipping_address     = models.ForeignKey(Shipping_address, default=1, blank=True)
+    shipping_address    = models.ForeignKey(Shipping_address, default=1, blank=True)
 
     shipping_agrement   = models.CharField(max_length=20, default='split', choices=SHIPPING_AGREMENTS, blank=True)
     partner_type        = models.CharField(max_length=20, choices=PARTNER_TYPES, blank=True)
