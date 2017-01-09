@@ -44,7 +44,7 @@ class Image_serializer(serializers.HyperlinkedModelSerializer):
                     'updated',
                     'product',
                     'color_1_en',
-                    'color_1_en',
+                    'color_2_en',
                     'image',
                     'perspective',
                     'photographer',
