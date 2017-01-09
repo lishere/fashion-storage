@@ -9,3 +9,4 @@ from store import Store, Store_serializer
 from person import Person, Person_serializer
 from customer import Customer, Customer_serializer
 from image import Image, Image_serializer
+from agency import Agency, Agency_serializer

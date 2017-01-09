@@ -12,6 +12,7 @@ from api.models.note import Note, Note_serializer
 from api.models.product import Product, Product_serializer
 from api.models.product_variant import Product_variant, Product_variant_serializer
 from api.models.image import Image, Image_serializer
+from api.models.agency import Agency, Agency_serializer
 
 """
 API endpoints
@@ -55,3 +56,7 @@ class ProductVariantViewSet(viewsets.ModelViewSet):
 class ImageViewSet(viewsets.ModelViewSet):
     queryset = Image.objects.all().order_by('created')
     serializer_class = Image_serializer
+
+class AgencyViewSet(viewsets.ModelViewSet):
+    queryset = Agency.objects.all().order_by('created')
+    serializer_class = Agency_serializer

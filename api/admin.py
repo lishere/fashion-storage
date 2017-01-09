@@ -13,6 +13,7 @@ from .models.customer import Customer
 from .models.product import Product
 from .models.image import Image
 from .models.product_variant import Product_variant
+from .models.agency import Agency
 
 
 class NoteInline(GenericTabularInline):
@@ -61,6 +62,12 @@ class ProductVariantAdmin(admin.ModelAdmin):
         NoteInline,
     ]
 
+class AgencyAdmin(admin.ModelAdmin):
+    inlines = [
+        NoteInline,
+    ]
+
+
 admin.site.register(Country)
 admin.site.register(Store, StoreAdmin)
 admin.site.register(Note)
@@ -71,3 +78,4 @@ admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Product_variant, ProductVariantAdmin)
 admin.site.register(Image, ImageAdmin)
+admin.site.register(Agency, AgencyAdmin)
