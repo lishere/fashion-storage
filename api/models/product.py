@@ -6,7 +6,8 @@ from rest_framework import serializers
 
 class Product(models.Model):
 
-    PRODUCT_TYPES   = (('coat','Coat'),('dress','Dress'),('jacket','Jacket'),('longsleeve','Longsleeve'),('pullover','Pullover'),('shirt','Shirt'),('skirt','Skirt'),('trousers','Trousers'),('other','Other'))
+    PRODUCT_TYPES   = (('coat','Coat'),('dress','Dress'),('jacket','Jacket'),('longsleeve','Longsleeve'),('pullover','Pullover'),('shirt','Shirt'),
+                       ('skirt','Skirt'),('trousers','Trousers'),('other','Other'))
     GENDER          = (('women','Women'),('men','Men'),('unisex','unisex'),)
 
     created             = models.DateTimeField(auto_now_add=True, blank=False)
@@ -21,7 +22,7 @@ class Product(models.Model):
     description_it      = models.TextField(max_length=500, blank=True, verbose_name='Italian description')
 
     def __unicode__(self):
-        return self.name
+        return '%s %s' % (self.type.title(), self.name)
 
     class Meta:
         ordering            = ('-name',)
