@@ -14,6 +14,7 @@ class Agency(models.Model):
     updated             = models.DateTimeField(auto_now_add=True, blank=True)
     is_active           = models.BooleanField(default=True, blank=True)
     is_online_shop      = models.BooleanField(default=False, blank=True)
+    in_acquisition      = models.BooleanField(default=False, blank=True)
 
     name                = models.CharField(max_length=250, blank=False)
     contact_person      = models.ForeignKey(Person, default=1, blank=False)
@@ -40,6 +41,7 @@ class Agency_serializer(serializers.HyperlinkedModelSerializer):
         fields = ('created',
                   'updated',
                   'is_active',
+                  'in_acquisition',
                   'name',
                   'contact_person',
                   'address',

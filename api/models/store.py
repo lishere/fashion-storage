@@ -17,6 +17,7 @@ class Store(models.Model):
     updated             = models.DateTimeField(auto_now_add=True, blank=True)
     is_active           = models.BooleanField(default=True, blank=True)
     is_online_shop      = models.BooleanField(default=False, blank=True)
+    in_acquisition      = models.BooleanField(default=False, blank=True)
 
     name                = models.CharField(max_length=250, blank=False)
     address             = models.CharField(max_length=125, blank=True)
@@ -55,6 +56,7 @@ class Store_serializer(serializers.HyperlinkedModelSerializer):
                   'updated',
                   'is_active',
                   'is_online_shop',
+                  'in_acquisition',
                   'name',
                   'address',
                   'zip_code',
