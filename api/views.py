@@ -2,6 +2,7 @@
 
 from rest_framework import viewsets
 
+from api.models.core_data import Core_data, Core_data_serializer
 from api.models.customer import Customer, Customer_serializer
 from api.models.country import Country, Country_serializer
 from api.models.store import Store, Store_serializer
@@ -19,6 +20,10 @@ from api.models.agency import Agency, Agency_serializer
 """
 API endpoints
 """
+class CoreDataViewSet(viewsets.ModelViewSet):
+    queryset = Core_data.objects.all().order_by('created')
+    serializer_class = Core_data_serializer
+
 class CustomerViewSet(viewsets.ModelViewSet):
     queryset = Customer.objects.all().order_by('created')
     serializer_class = Customer_serializer

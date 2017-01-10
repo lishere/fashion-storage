@@ -8,6 +8,7 @@ from rest_framework import routers
 from api import views
 
 router = routers.DefaultRouter()
+router.register(r'core-data', views.CoreDataViewSet)
 router.register(r'customers', views.CustomerViewSet)
 router.register(r'countries', views.CountryViewSet)
 router.register(r'stores', views.StoreViewSet)

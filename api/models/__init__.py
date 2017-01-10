@@ -1,4 +1,5 @@
 
+from core_data import Core_data, Core_data_serializer
 from country import Country, Country_serializer
 from note import Note, Note_serializer
 from invoice_address import Invoice_address

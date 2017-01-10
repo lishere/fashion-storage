@@ -3,6 +3,7 @@
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericTabularInline
 
+from .models.core_data import Core_data
 from .models.country import Country
 from .models.store import Store
 from .models.note import Note
@@ -92,3 +93,4 @@ admin.site.register(Product_variant_price_per_country)
 admin.site.register(Product_variant_price_per_store)
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Agency, AgencyAdmin)
+admin.site.register(Core_data)
