@@ -13,6 +13,7 @@ from .models.customer import Customer
 from .models.product import Product
 from .models.image import Image
 from .models.product_variant import Product_variant
+from .models.product_variant_price_per_country import Product_variant_price_per_country
 from .models.agency import Agency
 
 
@@ -77,5 +78,6 @@ admin.site.register(Person, PersonAdmin)
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Product_variant, ProductVariantAdmin)
+admin.site.register(Product_variant_price_per_country)
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Agency, AgencyAdmin)

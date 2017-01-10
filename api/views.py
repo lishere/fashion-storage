@@ -11,6 +11,7 @@ from api.models.person import Person, Person_serializer
 from api.models.note import Note, Note_serializer
 from api.models.product import Product, Product_serializer
 from api.models.product_variant import Product_variant, Product_variant_serializer
+from api.models.product_variant_price_per_country import Product_variant_price_per_country, Product_variant_price_per_country_serializer
 from api.models.image import Image, Image_serializer
 from api.models.agency import Agency, Agency_serializer
 
@@ -52,6 +53,10 @@ class ProductViewSet(viewsets.ModelViewSet):
 class ProductVariantViewSet(viewsets.ModelViewSet):
     queryset = Product_variant.objects.all().order_by('created')
     serializer_class = Product_variant_serializer
+
+class ProductVariantPricePerCountryViewSet(viewsets.ModelViewSet):
+    queryset = Product_variant_price_per_country.objects.all().order_by('country')
+    serializer_class = Product_variant_price_per_country_serializer
 
 class ImageViewSet(viewsets.ModelViewSet):
     queryset = Image.objects.all().order_by('created')

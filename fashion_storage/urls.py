@@ -17,6 +17,7 @@ router.register(r'notes', views.NoteViewSet)
 router.register(r'persons', views.PersonViewSet)
 router.register(r'products', views.ProductViewSet)
 router.register(r'product-variants', views.ProductVariantViewSet)
+router.register(r'product-variant-prices-per-country', views.ProductVariantPricePerCountryViewSet)
 router.register(r'images', views.ImageViewSet)
 router.register(r'agencies', views.AgencyViewSet)
 

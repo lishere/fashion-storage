@@ -5,6 +5,7 @@ from invoice_address import Invoice_address
 from shipping_address import Shipping_address
 from product import Product, Product_serializer
 from product_variant import Product_variant, Product_variant_serializer
+from product_variant_price_per_country import Product_variant_price_per_country, Product_variant_price_per_country_serializer
 from store import Store, Store_serializer
 from person import Person, Person_serializer
 from customer import Customer, Customer_serializer
