@@ -14,16 +14,22 @@ from .models.product import Product
 from .models.image import Image
 from .models.product_variant import Product_variant
 from .models.product_variant_price_per_country import Product_variant_price_per_country
+from .models.product_variant_price_per_store import Product_variant_price_per_store
 from .models.agency import Agency
 
 
+# defining inlines
 class NoteInline(GenericTabularInline):
     model = Note
 
 class ProductVariantPricePerCountryInline(admin.TabularInline):
     model = Product_variant_price_per_country
 
-# Add inline notes to forms
+class ProductVariantPricePerStoreInline(admin.TabularInline):
+    model = Product_variant_price_per_store
+
+
+# Add inlines to forms
 class StoreAdmin(admin.ModelAdmin):
     inlines = [
         NoteInline,
@@ -63,6 +69,7 @@ class ProductAdmin(admin.ModelAdmin):
 class ProductVariantAdmin(admin.ModelAdmin):
     inlines = [
         ProductVariantPricePerCountryInline,
+        ProductVariantPricePerStoreInline,
         NoteInline,
     ]
 
@@ -82,5 +89,6 @@ admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Product_variant, ProductVariantAdmin)
 admin.site.register(Product_variant_price_per_country)
+admin.site.register(Product_variant_price_per_store)
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Agency, AgencyAdmin)
