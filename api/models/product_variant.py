@@ -5,7 +5,6 @@ from rest_framework import serializers
 
 from api.models.image import Image
 from api.models.product import Product
-# from api.models.product_variant_price_per_country import Product_variant_price_per_country
 
 
 class Product_variant(models.Model):
@@ -21,9 +20,8 @@ class Product_variant(models.Model):
     images                          = models.ManyToManyField(Image, blank=True)
 
     rec_gross_sale_price_default    = models.DecimalField(default=0, max_digits=6, decimal_places=2, blank=True, verbose_name='Recommended default gross sale price in EURO')
-    # rec_gross_sale_price_by_country = models.ManyToManyField(Product_variant_price_per_country, blank=True, verbose_name='Recommended default gross sale price in price of country')
-
     size                            = models.CharField(max_length=7, default='unisize', choices=SIZES, blank=False)
+
     description_de                  = models.TextField(max_length=500, blank=True, verbose_name='German description')
     description_en                  = models.TextField(max_length=500, blank=True, verbose_name='English description')
     description_it                  = models.TextField(max_length=500, blank=True, verbose_name='Italian description')

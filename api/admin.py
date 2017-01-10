@@ -20,6 +20,8 @@ from .models.agency import Agency
 class NoteInline(GenericTabularInline):
     model = Note
 
+class ProductVariantPricePerCountryInline(admin.TabularInline):
+    model = Product_variant_price_per_country
 
 # Add inline notes to forms
 class StoreAdmin(admin.ModelAdmin):
@@ -60,6 +62,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 class ProductVariantAdmin(admin.ModelAdmin):
     inlines = [
+        ProductVariantPricePerCountryInline,
         NoteInline,
     ]
 
