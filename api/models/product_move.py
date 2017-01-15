@@ -16,8 +16,8 @@ class Product_move(models.Model):
 
     move_date               = models.DateTimeField(default=datetime.now, blank=False)
     move_type               = models.CharField(max_length=20, choices=MOVE_TYPES, blank=False)
-    remove_from             = models.ForeignKey(Store, blank=False)
-    move_to                 = models.ForeignKey(Store, related_name="moveto", blank=False)
+    remove_from             = models.ForeignKey(Store, blank=True, null=True)
+    move_to                 = models.ForeignKey(Store, related_name="moveto", blank=True, null=True)
 
     def __unicode__(self):
         return '%s %s %s' % (self.move_date, self.remove_from, self.move_to)

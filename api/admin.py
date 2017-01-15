@@ -17,7 +17,7 @@ from .models.product_variant import Product_variant
 from .models.product_variant_price_per_country import Product_variant_price_per_country
 from .models.product_variant_price_per_store import Product_variant_price_per_store
 from .models.product_move import Product_move
-#from .models.product_variant_quantity import Product_variant_quantity
+from .models.sale import Sale
 from .models.listing import Listing
 from .models.agency import Agency
 
@@ -31,9 +31,6 @@ class ProductVariantPricePerCountryInline(admin.TabularInline):
 
 class ProductVariantPricePerStoreInline(admin.TabularInline):
     model = Product_variant_price_per_store
-
-# class ProductVariantQuantityInline(admin.TabularInline):
-#    model = Product_variant_quantity
 
 class ListingInline(admin.TabularInline):
     model = Listing
@@ -86,12 +83,14 @@ class ProductVariantAdmin(admin.ModelAdmin):
 class ProductMoveAdmin(admin.ModelAdmin):
     inlines = [
         ListingInline,
+        NoteInline,
     ]
 
-# class ListingAdmin(admin.ModelAdmin):
-#     inlines = [
-#         ProductVariantQuantityInline,
-#     ]
+class SaleAdmin(admin.ModelAdmin):
+    inlines = [
+        ListingInline,
+        NoteInline,
+    ]
 
 class AgencyAdmin(admin.ModelAdmin):
     inlines = [
@@ -111,7 +110,7 @@ admin.site.register(Product_variant, ProductVariantAdmin)
 admin.site.register(Product_variant_price_per_country)
 admin.site.register(Product_variant_price_per_store)
 admin.site.register(Product_move, ProductMoveAdmin)
-#admin.site.register(Product_variant_quantity)
+admin.site.register(Sale, SaleAdmin)
 admin.site.register(Listing)
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Agency, AgencyAdmin)

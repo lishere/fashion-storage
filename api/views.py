@@ -15,7 +15,7 @@ from api.models.product_variant import Product_variant, Product_variant_serializ
 from api.models.product_variant_price_per_country import Product_variant_price_per_country, Product_variant_price_per_country_serializer
 from api.models.product_variant_price_per_store import Product_variant_price_per_store, Product_variant_price_per_store_serializer
 from api.models.product_move import Product_move, Product_move_serializer
-#from api.models.product_variant_quantity import Product_variant_quantity, Product_variant_quantity_serializer
+from api.models.sale import Sale, Sale_serializer
 from api.models.listing import Listing, Listing_serializer
 from api.models.image import Image, Image_serializer
 from api.models.agency import Agency, Agency_serializer
@@ -74,10 +74,10 @@ class ProductVariantPricePerStoreViewSet(viewsets.ModelViewSet):
 class ProductMoveViewSet(viewsets.ModelViewSet):
     queryset = Product_move.objects.all().order_by('move_date')
     serializer_class = Product_move_serializer
-# 
-# class ProductVariantQuantityViewSet(viewsets.ModelViewSet):
-#     queryset = Product_variant_quantity.objects.all().order_by('created')
-#     serializer_class = Product_variant_quantity
+
+class SaleViewSet(viewsets.ModelViewSet):
+    queryset = Sale.objects.all().order_by('created')
+    serializer_class = Sale
 
 class ListingViewSet(viewsets.ModelViewSet):
     queryset = Listing.objects.all().order_by('created')

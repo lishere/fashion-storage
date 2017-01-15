@@ -5,8 +5,8 @@ from django.db import models
 from rest_framework import serializers
 
 from api.models.product_move import Product_move
+from api.models.sale import Sale
 from api.models.product_variant import Product_variant
-# from api.models.product_variant_quantity import Product_variant_quantity
 
 
 class Listing(models.Model):
@@ -16,11 +16,11 @@ class Listing(models.Model):
     created                  = models.DateTimeField(auto_now_add=True, blank=False)
     updated                  = models.DateTimeField(auto_now_add=True, blank=True)
 
-    #sale_id                 = models.ForeignKey(Sale, blank=True)
-    product_move_id          = models.ForeignKey(Product_move, blank=True)
-    # product_variant_quantity = models.ForeignKey(Product_variant_quantity, blank=False)
-    product_variant         = models.ForeignKey(Product_variant, blank=False)
-    quantity                = models.DecimalField(default=0, max_digits=10, decimal_places=0, blank=False)
+    product_move_id          = models.ForeignKey(Product_move, blank=True, null=True)
+    sale_id                  = models.ForeignKey(Sale, blank=True, null=True)
+
+    product_variant          = models.ForeignKey(Product_variant, blank=True, null=True)
+    quantity                 = models.DecimalField(default=0, max_digits=10, decimal_places=0, blank=True, null=True)
 
     def __unicode__(self):
         return '%s %s' % (self.id, self.product_move_id)
