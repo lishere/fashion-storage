@@ -8,6 +8,9 @@ from product import Product, Product_serializer
 from product_variant import Product_variant, Product_variant_serializer
 from product_variant_price_per_country import Product_variant_price_per_country, Product_variant_price_per_country_serializer
 from product_variant_price_per_store import Product_variant_price_per_store, Product_variant_price_per_store_serializer
+from product_move import Product_move, Product_move_serializer
+#from product_variant_quantity import Product_variant_quantity, Product_variant_quantity_serializer
+from listing import Listing, Listing_serializer
 from store import Store, Store_serializer
 from person import Person, Person_serializer
 from customer import Customer, Customer_serializer
