@@ -19,7 +19,6 @@ from .models.product_variant_price_per_store import Product_variant_price_per_st
 from .models.product_move import Product_move
 from .models.sale import Sale
 from .models.listing import Listing
-from .models.agency import Agency
 
 
 # defining inlines
@@ -92,11 +91,6 @@ class SaleAdmin(admin.ModelAdmin):
         NoteInline,
     ]
 
-class AgencyAdmin(admin.ModelAdmin):
-    inlines = [
-        NoteInline,
-    ]
-
 
 admin.site.register(Country)
 admin.site.register(Store, StoreAdmin)
@@ -113,5 +107,4 @@ admin.site.register(Product_move, ProductMoveAdmin)
 admin.site.register(Sale, SaleAdmin)
 admin.site.register(Listing)
 admin.site.register(Image, ImageAdmin)
-admin.site.register(Agency, AgencyAdmin)
 admin.site.register(Core_data)

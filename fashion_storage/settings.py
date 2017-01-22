@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'fashion_storage.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fashion_storage',
+        'NAME': 'fashion_storage_2',
         'USER': 'fashion_storage',
         'PASSWORD': 'fdsfhBBkezuuizwuziZIZUI',
         'HOST': 'localhost',

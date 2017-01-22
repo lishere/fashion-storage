@@ -17,6 +17,7 @@ class Store(models.Model):
     updated             = models.DateTimeField(auto_now_add=True, blank=True)
     is_active           = models.BooleanField(default=True, blank=True)
     is_online_shop      = models.BooleanField(default=False, blank=True)
+    is_agency           = models.BooleanField(default=False, blank=True, help_text='Is this partner an agency?')
     in_acquisition      = models.BooleanField(default=False, blank=True)
 
     name                = models.CharField(max_length=250, blank=False)
@@ -25,8 +26,8 @@ class Store(models.Model):
     city                = models.CharField(max_length=50, blank=False)
     country             = models.ForeignKey(Country, blank=True)
 
-    invoice_address     = models.ForeignKey(Invoice_address, default=1, blank=True)
-    shipping_address    = models.ForeignKey(Shipping_address, default=1, blank=True)
+    invoice_address     = models.ForeignKey(Invoice_address, default=1, blank=True, null=True)
+    shipping_address    = models.ForeignKey(Shipping_address, default=1, blank=True, null=True)
 
     shipping_agrement   = models.CharField(max_length=20, default='split', choices=SHIPPING_AGREMENTS, blank=True)
     partner_type        = models.CharField(max_length=20, choices=PARTNER_TYPES, blank=True)

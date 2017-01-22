@@ -16,11 +16,13 @@ class Product_move(models.Model):
 
     move_date               = models.DateTimeField(default=datetime.now, blank=False)
     move_type               = models.CharField(max_length=20, choices=MOVE_TYPES, blank=False)
-    remove_from             = models.ForeignKey(Store, blank=True, null=True)
-    move_to                 = models.ForeignKey(Store, related_name="moveto", blank=True, null=True)
+    remove_from             = models.ForeignKey(Store, blank=True, null=True, verbose_name='Remove from store')
+    move_to                 = models.ForeignKey(Store, related_name="moveto", blank=True, null=True, verbose_name='Move from store')
 
     def __unicode__(self):
-        return '%s %s %s' % (self.move_date, self.remove_from, self.move_to)
+        return '%s %s %s' % (self.move_date,
+                                   self.remove_from,
+                                   self.move_to)
 
     class Meta:
         ordering            = ('move_date',)
@@ -37,6 +39,6 @@ class Product_move_serializer(serializers.HyperlinkedModelSerializer):
                     'updated',
                     'move_date',
                     'move_type',
-                    'remove_from'
-                    'move_to'
+                    'remove_from',
+                    'move_to',
                  )

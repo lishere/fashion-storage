@@ -6,7 +6,6 @@ from rest_framework import serializers
 
 from api.models.store import Store
 from api.models.customer import Customer
-from api.models.agency import Agency
 
 
 class Sale(models.Model):
@@ -24,12 +23,11 @@ class Sale(models.Model):
 
     sold_to_store           = models.ForeignKey(Store, related_name="soldtostore", blank=True, null=True)
     sold_to_customer        = models.ForeignKey(Customer, related_name="soldtocustomer", blank=True, null=True)
-    agency_involved         = models.ForeignKey(Agency, related_name="agencyinvolved", blank=True, null=True)
+    #agency_involved         = models.ForeignKey(Agency, related_name="agencyinvolved", blank=True, null=True)
 
     def __unicode__(self):
-        return '%s %s %s %s %s' % (self.sale_date, self.sale_type,
-                                   self.sold_to_store, self.sold_to_customer,
-                                   self.agency_involved)
+        return '%s %s %s %s' % (self.sale_date, self.sale_type,
+                                   self.sold_to_store, self.sold_to_customer)
 
     class Meta:
         ordering            = ('sale_date',)
@@ -47,6 +45,5 @@ class Sale_serializer(serializers.HyperlinkedModelSerializer):
                     'sale_date',
                     'sale_type',
                     'sold_to_store',
-                    'sold_to_customer',
-                    'agency_involved'
+                    'sold_to_customer'
                  )

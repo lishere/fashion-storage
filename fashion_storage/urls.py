@@ -20,11 +20,10 @@ router.register(r'products', views.ProductViewSet)
 router.register(r'product-variants', views.ProductVariantViewSet)
 router.register(r'product-variant-prices-per-country', views.ProductVariantPricePerCountryViewSet)
 router.register(r'product-variant-prices-per-store', views.ProductVariantPricePerStoreViewSet)
-router.register(r'product-moves', views.AgencyViewSet)
+router.register(r'product-moves', views.ProductMoveViewSet)
 router.register(r'sales', views.SaleViewSet)
-router.register(r'listings', views.AgencyViewSet)
+router.register(r'listings', views.ListingViewSet)
 router.register(r'images', views.ImageViewSet)
-router.register(r'agencies', views.AgencyViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
