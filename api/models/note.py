@@ -14,7 +14,6 @@ class Note(models.Model):
     object_id           = models.PositiveIntegerField(default=0)
     attached_to         = GenericForeignKey('content_type', 'object_id')
     body                = models.TextField(blank=False)
-    # user
 
     def __unicode__(self):
         return Truncator(self.body).chars(40)

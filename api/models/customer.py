@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from datetime import datetime
 from rest_framework import serializers
 
 from api.models.country import Country
@@ -14,6 +15,8 @@ class Customer(models.Model):
     created             = models.DateTimeField(auto_now_add=True, blank=False)
     updated             = models.DateTimeField(auto_now_add=True, blank=True)
     is_active           = models.BooleanField(default=True, blank=True)
+    resubmission_date   = models.DateField(default=datetime.now, blank=True, null=True, help_text='Mark this data set for resubmission on a date')
+
     items_bought        = models.IntegerField(default=0, blank=True, verbose_name='Total number of items bought by this customer')
     wants_newsletter    = models.BooleanField(default=True, blank=True)
     language            = models.CharField(max_length=2, default='DE', choices=LANGUAGES, blank=False)

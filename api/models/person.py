@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from datetime import datetime
 from rest_framework import serializers
 
 
@@ -13,6 +14,8 @@ class Person(models.Model):
     created             = models.DateTimeField(auto_now_add=True, blank=False)
     updated             = models.DateTimeField(auto_now_add=True, blank=True)
     is_active           = models.BooleanField(default=True, blank=True)
+    resubmission_date   = models.DateField(default=datetime.now, blank=True, null=True, help_text='Mark this data set for resubmission on a date')
+
     language            = models.CharField(max_length=2, default='DE', choices=LANGUAGES, blank=False)
     partner_type        = models.CharField(max_length=25, default='seller', choices=PARTNER_TYPES, blank=False)
 

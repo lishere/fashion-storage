@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from datetime import datetime
 from rest_framework import serializers
 
 from api.models.country import Country
@@ -16,6 +17,8 @@ class Store(models.Model):
     created             = models.DateTimeField(auto_now_add=True, blank=False)
     updated             = models.DateTimeField(auto_now_add=True, blank=True)
     is_active           = models.BooleanField(default=True, blank=True)
+    resubmission_date   = models.DateField(default=datetime.now, blank=True, null=True, help_text='Mark this data set for resubmission on a date')
+
     is_online_shop      = models.BooleanField(default=False, blank=True)
     is_agency           = models.BooleanField(default=False, blank=True, help_text='Is this partner an agency?')
     in_acquisition      = models.BooleanField(default=False, blank=True)
