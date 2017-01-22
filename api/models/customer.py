@@ -59,6 +59,7 @@ class Customer_serializer(serializers.HyperlinkedModelSerializer):
         fields = ('created',
                   'updated',
                   'is_active',
+                  'resubmission_date',
                   'items_bought',
                   'wants_newsletter',
                   'language',

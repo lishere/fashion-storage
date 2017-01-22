@@ -47,6 +47,7 @@ class Person_serializer(serializers.HyperlinkedModelSerializer):
         fields = ('created',
                   'updated',
                   'is_active',
+                  'resubmission_date',
                   'language',
                   'partner_type',
                   'language',
