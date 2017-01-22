@@ -19,6 +19,7 @@ from .models.product_variant_price_per_store import Product_variant_price_per_st
 from .models.product_move import Product_move
 from .models.sale import Sale
 from .models.listing import Listing
+from .models.stock import Stock, Stock_serializer
 
 
 # defining inlines
@@ -108,3 +109,4 @@ admin.site.register(Sale, SaleAdmin)
 admin.site.register(Listing)
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Core_data)
+admin.site.register(Stock)

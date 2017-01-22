@@ -18,6 +18,7 @@ from api.models.product_move import Product_move, Product_move_serializer
 from api.models.sale import Sale, Sale_serializer
 from api.models.listing import Listing, Listing_serializer
 from api.models.image import Image, Image_serializer
+from api.models.stock import Stock, Stock_serializer
 
 """
 API endpoints
@@ -85,3 +86,7 @@ class ListingViewSet(viewsets.ModelViewSet):
 class ImageViewSet(viewsets.ModelViewSet):
     queryset = Image.objects.all().order_by('created')
     serializer_class = Image_serializer
+
+class StockViewSet(viewsets.ModelViewSet):
+    queryset = Stock.objects.all().order_by('id')
+    serializer_class = Stock_serializer

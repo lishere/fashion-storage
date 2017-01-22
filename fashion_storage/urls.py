@@ -24,6 +24,7 @@ router.register(r'product-moves', views.ProductMoveViewSet)
 router.register(r'sales', views.SaleViewSet)
 router.register(r'listings', views.ListingViewSet)
 router.register(r'images', views.ImageViewSet)
+router.register(r'stocks', views.ImageViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
