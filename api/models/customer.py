@@ -14,7 +14,7 @@ class Customer(models.Model):
     created             = models.DateTimeField(auto_now_add=True, blank=False)
     updated             = models.DateTimeField(auto_now_add=True, blank=True)
     is_active           = models.BooleanField(default=True, blank=True)
-    items_bought        = models.IntegerField(default=0, blank=True)
+    items_bought        = models.IntegerField(default=0, blank=True, verbose_name='Total number of items bought by this customer')
     wants_newsletter    = models.BooleanField(default=True, blank=True)
     language            = models.CharField(max_length=2, default='DE', choices=LANGUAGES, blank=False)
 

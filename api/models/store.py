@@ -31,7 +31,7 @@ class Store(models.Model):
 
     shipping_agrement   = models.CharField(max_length=20, default='split', choices=SHIPPING_AGREMENTS, blank=True)
     partner_type        = models.CharField(max_length=20, choices=PARTNER_TYPES, blank=True)
-    commission_rate     = models.IntegerField(default=50, blank=True, help_text='Commmission as charged by the store in %')
+    commission_rate     = models.IntegerField(default=50, blank=True, help_text='Commmission as charged by this partner in %')
 
     website             = models.URLField(max_length=250, blank=True)
     facebook            = models.URLField(max_length=250, blank=True)
