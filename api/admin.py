@@ -20,6 +20,7 @@ from .models.product_move import Product_move
 from .models.sale import Sale
 from .models.listing import Listing
 from .models.stock import Stock, Stock_serializer
+from .models.packing_list import Packing_list, Packing_list_serializer
 
 
 # defining inlines
@@ -34,6 +35,9 @@ class ProductVariantPricePerStoreInline(admin.TabularInline):
 
 class ListingInline(admin.TabularInline):
     model = Listing
+
+class ProductMoveInline(admin.TabularInline):
+    model = Product_move
 
 
 # Add inlines to forms
@@ -92,6 +96,10 @@ class SaleAdmin(admin.ModelAdmin):
         NoteInline,
     ]
 
+class PackingListAdmin(admin.ModelAdmin):
+    inlines = [
+        NoteInline,
+    ]
 
 admin.site.register(Country)
 admin.site.register(Store, StoreAdmin)
@@ -110,3 +118,4 @@ admin.site.register(Listing)
 admin.site.register(Image, ImageAdmin)
 admin.site.register(Core_data)
 admin.site.register(Stock)
+admin.site.register(Packing_list, PackingListAdmin)

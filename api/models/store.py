@@ -59,6 +59,7 @@ class Store_serializer(serializers.HyperlinkedModelSerializer):
         fields = ('created',
                   'updated',
                   'is_active',
+                  'resubmission_date',
                   'is_online_shop',
                   'in_acquisition',
                   'name',

@@ -21,7 +21,7 @@ class Sale(models.Model):
     sale_date               = models.DateTimeField(default=datetime.now, blank=False)
     sale_type               = models.CharField(max_length=20, choices=SALE_TYPES, blank=False)
 
-    sold_to_store           = models.ForeignKey(Store, related_name="soldtostore", blank=True, null=True)
+    sold_to_store           = models.ForeignKey(Store, related_name="soldtostore", blank=True, null=True, verbose_name="Sold in store / Sold to store")
     sold_to_customer        = models.ForeignKey(Customer, related_name="soldtocustomer", blank=True, null=True)
     #agency_involved         = models.ForeignKey(Agency, related_name="agencyinvolved", blank=True, null=True)
 

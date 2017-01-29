@@ -9,20 +9,16 @@ from api.models.store import Store
 
 class Product_move(models.Model):
 
-    MOVE_TYPES = (('moved_to_store','Moved to store'),('non_saleable','Marked as non-saleable'),)
-
     created                 = models.DateTimeField(auto_now_add=True, blank=False)
     updated                 = models.DateTimeField(auto_now_add=True, blank=True)
 
+    is_destroyed            = models.BooleanField(default=False, blank=True, verbose_name="Destroyed?", help_text="Mark this item as destroyed, stolen or otherwise non-saleable")
     move_date               = models.DateTimeField(default=datetime.now, blank=False)
-    move_type               = models.CharField(max_length=20, choices=MOVE_TYPES, blank=False)
     remove_from             = models.ForeignKey(Store, blank=True, null=True, verbose_name='Remove from store')
-    move_to                 = models.ForeignKey(Store, related_name="moveto", blank=True, null=True, verbose_name='Move from store')
+    move_to                 = models.ForeignKey(Store, related_name="moveto", blank=True, null=True, verbose_name='Move to store')
 
     def __unicode__(self):
-        return '%s %s %s' % (self.move_date,
-                                   self.remove_from,
-                                   self.move_to)
+        return '%s %s %s' % (self.move_date, self.remove_from, self.move_to)
 
     class Meta:
         ordering            = ('move_date',)
@@ -38,7 +34,6 @@ class Product_move_serializer(serializers.HyperlinkedModelSerializer):
                     'created',
                     'updated',
                     'move_date',
-                    'move_type',
                     'remove_from',
                     'move_to',
                  )

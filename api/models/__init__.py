@@ -16,3 +16,4 @@ from person import Person, Person_serializer
 from customer import Customer, Customer_serializer
 from image import Image, Image_serializer
 from stock import Stock, Stock_serializer
+from packing_list import Packing_list, Packing_list_serializer
