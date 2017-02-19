@@ -17,6 +17,7 @@ class Listing(models.Model):
 
     product_variant          = models.ForeignKey(Product_variant, blank=True, null=True)
     quantity                 = models.DecimalField(default=0, max_digits=10, decimal_places=0, blank=True, null=True)
+    is_destroyed             = models.BooleanField(default=False, blank=True, verbose_name="Destroyed?", help_text="Mark products(s) as destroyed, stolen or otherwise non-saleable")
 
     def __unicode__(self):
         return '%s %s' % (self.id, self.product_move_id)
