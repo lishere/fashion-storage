@@ -5,6 +5,7 @@ from django.db import models
 from rest_framework import serializers
 
 from api.models.store import Store
+#from api.models.sale import Sale
 
 
 class Product_move(models.Model):
@@ -16,6 +17,8 @@ class Product_move(models.Model):
     move_date               = models.DateTimeField(default=datetime.now, blank=False)
     remove_from             = models.ForeignKey(Store, blank=True, null=True, verbose_name='Remove from store')
     move_to                 = models.ForeignKey(Store, related_name="moveto", blank=True, null=True, verbose_name='Move to store')
+
+    #sale_id                 = models.ForeignKey(Sale, blank=True, null=True)
 
     def __unicode__(self):
         return '%s %s %s' % (self.move_date, self.remove_from, self.move_to)

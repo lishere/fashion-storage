@@ -21,6 +21,7 @@ from .models.sale import Sale
 from .models.listing import Listing
 from .models.stock import Stock, Stock_serializer
 from .models.packing_list import Packing_list, Packing_list_serializer
+from .models.invoice import Invoice, Invoice_serializer
 
 
 # defining inlines
@@ -38,6 +39,9 @@ class ListingInline(admin.TabularInline):
 
 class ProductMoveInline(admin.TabularInline):
     model = Product_move
+
+class SaleInline(admin.TabularInline):
+    model = Sale
 
 
 # Add inlines to forms
@@ -92,11 +96,15 @@ class ProductMoveAdmin(admin.ModelAdmin):
 
 class SaleAdmin(admin.ModelAdmin):
     inlines = [
-        ListingInline,
         NoteInline,
     ]
 
 class PackingListAdmin(admin.ModelAdmin):
+    inlines = [
+        NoteInline,
+    ]
+
+class InvoiceAdmin(admin.ModelAdmin):
     inlines = [
         NoteInline,
     ]
@@ -119,3 +127,4 @@ admin.site.register(Image, ImageAdmin)
 admin.site.register(Core_data)
 admin.site.register(Stock)
 admin.site.register(Packing_list, PackingListAdmin)
+admin.site.register(Invoice, InvoiceAdmin)
