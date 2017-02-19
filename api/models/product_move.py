@@ -11,7 +11,6 @@ class Product_move(models.Model):
     created                 = models.DateTimeField(auto_now_add=True, blank=False)
     updated                 = models.DateTimeField(auto_now_add=True, blank=True)
 
-    is_destroyed            = models.BooleanField(default=False, blank=True, verbose_name="Destroyed?", help_text="Mark this item as destroyed, stolen or otherwise non-saleable")
     move_date               = models.DateTimeField(default=datetime.now, blank=False)
     remove_from             = models.ForeignKey(Store, blank=True, null=True, verbose_name='Remove from store')
     move_to                 = models.ForeignKey(Store, related_name="moveto", blank=True, null=True, verbose_name='Move to store')
