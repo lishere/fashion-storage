@@ -27,7 +27,6 @@ class Sale(models.Model):
     #agency_involved         = models.ForeignKey(Agency, related_name="agencyinvolved", blank=True, null=True)
 
     product_move             = models.ForeignKey(Product_move, blank=True, null=True)
-    #invoice                 = models.ForeignKey(Invoice, blank=True, null=True)
 
 
     def __unicode__(self):
