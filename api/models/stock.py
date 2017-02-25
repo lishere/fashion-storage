@@ -31,40 +31,44 @@ def modify_stock(sender, instance, **kwargs):
     # check if we should increment a stock and if the stock to be incremented exists
     if product_move.move_to_id:
         try:
+            # get stock to be incremented
             stock_to_increment = Stock.objects.get(product_variant_id=instance.product_variant_id,
                                                    store_id=product_move.move_to_id)
-            # save to db
-            Stock(product_variant_id=instance.product_variant_id,
-                               quantity=stock_to_increment.quantity+instance.quantity,
-                               store_id=product_move.move_to_id).save()
+            # increment and save to db
+            stock_to_increment.quantity = stock_to_increment.quantity+instance.quantity
+            stock_to_increment.save()
             print("Successfully incremented stock from "+str(stock_to_increment.quantity)+
                   " items to "+str(instance.quantity)+
                   " for product "+str(product_variant_name)+
                   " in store with id "+str(product_move.move_to_id))
 
         except Stock.DoesNotExist:
+            print("Stock does not exist yet.")
             Stock(product_variant_id=instance.product_variant_id,
                   quantity=instance.quantity,
                   store_id=product_move.move_to_id).save()
+            print("Successfully created new stock and added "+str(instance.quantity)+" units.")
 
     # check if we should decrement a stock and if the stock to be decremented exists
     if product_move.remove_from_id:
         try:
+            # get existing stock
             stock_to_decrement = Stock.objects.get(product_variant_id=instance.product_variant_id,
                                                    store_id=product_move.remove_from_id)
-            # save to db
-            Stock(product_variant_id=instance.product_variant_id,
-                               quantity=stock_to_decrement.quantity-instance.quantity,
-                               store_id=product_move.remove_from_id).save()
+            # decrement existing stock and save to db
+            stock_to_decrement.quantity = stock_to_decrement.quantity-instance.quantity
+            stock_to_decrement.save()
             print("Successfully decremented stock from "+str(stock_to_decrement.quantity)+
-                  " items to "+str(instance.quantity)+
+                  " items to "+str(stock_to_decrement.quantity-instance.quantity)+
                   " for product "+str(product_variant_name)+
                   " in store with id "+str(product_move.remove_from_id))
 
         except Stock.DoesNotExist:
+            print("Stock does not exist. Creating new stock")
             Stock(product_variant_id=instance.product_variant_id,
-                  quantity=instance.quantity,
+                  quantity=-instance.quantity,
                   store_id=product_move.remove_from_id).save()
+            print("New stock created and removed "+str(instance.quantity)+" units")
 
 post_save.connect(modify_stock, sender=Listing)
 
