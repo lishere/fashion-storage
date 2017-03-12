@@ -18,10 +18,15 @@ class Invoice(models.Model):
     date                    = models.DateTimeField(default=datetime.now, blank=False)
     state                   = models.CharField(default="open", max_length=20, choices=STATES, blank=True)
     correction_for          = models.ForeignKey("self", related_name="selfref", blank=True, null=True)
+    sale                    = models.ForeignKey(Sale, blank=True, null=True)
+    sale_vat                = models.IntegerField(default=19, blank=True, null=True, verbose_name='Sale VAT', help_text='VAT to apply on all items in sale in %')
+    other_items             = models.TextField(blank=True, null=True, help_text='You can add items not included in a sale. Add description for other items here')
+    other_item_amounts      = models.IntegerField(default=0, blank=True, null=True, help_text='Add other items amount')
+    other_items_vat         = models.IntegerField(default=19, blank=True, null=True, verbose_name='Other items VAT', help_text='VAT to apply on other items in %')
     discount_description    = models.TextField(blank=True, null=True)
     discount_amount         = models.IntegerField(default=0, blank=True, null=True, help_text='Discount amount as a positive number')
-
-    sale                    = models.ForeignKey(Sale, blank=True, null=True)
+    # total_vat_amount
+    # total_invoice_amount
 
     def __unicode__(self):
         return '%s %s %s' % (self.id, self.date, self.state)
@@ -43,6 +48,10 @@ class Invoice_serializer(serializers.HyperlinkedModelSerializer):
                     'date',
                     'state',
                     'correction_for',
+                    'sale',
+                    'sale_vat',
+                    'other_items',
+                    'other_items_description',
                     'discount_amount',
                     'discount_description',
                  )
