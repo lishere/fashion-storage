@@ -25,15 +25,14 @@ from api.models.stock import Stock, Stock_serializer
 from api.models.packing_list import Packing_list, Packing_list_serializer
 from api.models.invoice import Invoice, Invoice_serializer
 
+from api.utils import *
 
 """
-Custom views
+Print views
 """
-
-import urlparse
 
 class InvoiceView(TemplateView):
-    template_name       = 'invoice-de.html'
+    template_name = 'invoice-de.html'
 
     def get_context_data(self, **kwargs):
         context             = super(InvoiceView, self).get_context_data(**kwargs)
@@ -51,6 +50,28 @@ class InvoiceView(TemplateView):
 
         return context
 
+class ProductMoveView(TemplateView):
+    template_name = 'product_move-de.html'
+
+    def get_context_data(self, **kwargs):
+        context                     = super(ProductMoveView, self).get_context_data(**kwargs)
+
+        id                          = self.kwargs.get('id', None)
+        template_language           = self.kwargs.get('language', None)
+
+        pm                          = Product_move.objects.get(id=id)
+        listings                    = getListingsForProductMove(id)
+        pv_ids                      = getProductVariantIdsForListings(listings)
+        product_variants = []
+
+        for p in pv_ids:
+            product = getProductByProductVariantId(p)
+            pv = getObjectInstanceById(Product_variant, p)
+            product_variants.append(product.type+' '+product.name+' '+pv.fabric_1_de)
+
+        context['product_variants'] = product_variants
+
+        return context
 """
 API endpoints
 """

@@ -2,3 +2,12 @@
 .invisible {
   display: none;
 }
+
+.print {
+  display: block;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+}

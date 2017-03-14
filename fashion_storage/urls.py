@@ -8,6 +8,7 @@ from rest_framework import routers
 from api import views
 
 from api.views import InvoiceView
+from api.views import ProductMoveView
 
 router = routers.DefaultRouter()
 router.register(r'core-data', views.CoreDataViewSet)
@@ -31,7 +32,8 @@ router.register(r'packing-lists', views.ImageViewSet)
 router.register(r'invoices', views.ImageViewSet)
 
 urlpatterns = [
-    url(r'^print/invoices/(?P<language>[a-z][a-z])/(?P<id>[0-9])', InvoiceView.as_view()),
+    url(r'^print/invoices/(?P<language>[a-z][a-z])/(?P<id>[0-9]+)', InvoiceView.as_view()),
+    url(r'^view/product-moves/(?P<language>[a-z][a-z])/(?P<id>[0-9]+)', ProductMoveView.as_view()),
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
 ]

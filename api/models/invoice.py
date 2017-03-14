@@ -9,7 +9,7 @@ from api.models.sale import Sale
 
 class Invoice(models.Model):
 
-    STATES = (('paid','Paid'),('open','Open'),('chancelled','Chancelled'),)
+    STATES = (('paid','Paid'),('open','Open'),('chancelled','Chancelled'),('late_notice','Late notice'))
     CURRENCIES = (('other','Other currency'),('EUR','Euro'),('GBP','British Pound'),('CAD', 'Canadian Dollar'),('DKK','Danish Krone'),('NOK','Norwegian Krone'),('RUB','Russian Rubel'),('SEK','Swedish Krona'),('CHF','Swiss Franken'),('USD','US Dollar'),)
 
     created                 = models.DateTimeField(auto_now_add=True, blank=False)
@@ -32,6 +32,14 @@ class Invoice(models.Model):
 
     # total_vat_amount
     # total_invoice_amount
+
+    # # overriding save method to perform calculations first
+    # def save(self, *args, **kwargs):
+    #     print "SSSSSSSSSSSSSSSSSSS"
+    #     print
+    #     # Call the "real" save() method in the base class 'models.Model'.
+    #     models.Model.save(self, *args, **kwargs)
+
 
     def __unicode__(self):
         return '%s %s %s' % (self.id, self.date, self.state)
