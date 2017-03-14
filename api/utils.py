@@ -25,7 +25,25 @@ def getObjectInstanceById(type, id):
     return type.objects.get(id=id)
 
 
+##################### Invoice utils
+
+def getListingsForInvoice(invoiceId):
+    return getListingsForProductMove(getProductMoveIdForInvoice(invoiceId))
+
+def getProductVariantsForInvoice(invoiceId):
+    return getProductVariantsForProductMove(getProductMoveIdForInvoice(invoiceId))
+
+##################### Sale utils
+
+def getSaleIdForInvoice(invoiceId):
+    invoice = getObjectInstanceById(Invoice, invoiceId)
+    return invoice.sale_id
+
 ##################### Product moves and listing utils
+
+def getProductMoveIdForSale(saleId):
+    sale = Sale.objects.get(id=saleId)
+    return sale.product_move_id
 
 def getListingsForProductMove(productMoveId):
     return Listing.objects.filter(product_move_id_id=productMoveId)
@@ -34,6 +52,9 @@ def getProductMoveId(saleId):
     sale = Sale.objects.get(id=saleId)
     return sale.product_move_id
 
+def getProductMoveIdForInvoice(invoiceId):
+    saleId = getSaleIdForInvoice(invoiceId)
+    return getProductMoveIdForSale(saleId)
 
 ###################### Product variant utils
 
@@ -47,6 +68,22 @@ def getProductVariantIdsForListings(listings):
         pv = getProductVariantIdForListing(l.id)
         productVariants.append(pv)
     return productVariants
+
+def getProductVariantsForProductMove(productMoveId):
+    listings = getListingsForProductMove(productMoveId)
+    pv_ids   = getProductVariantIdsForListings(listings)
+
+    product_variants = []
+    for p in pv_ids:
+        product = getProductByProductVariantId(p)
+        pv = getObjectInstanceById(Product_variant, p)
+        product_variants.append(
+            product.type.capitalize()+' '+
+            product.name+' '+
+            pv.fabric_1_de+' '+
+            pv.size
+        )
+    return product_variants
 
 def getProductVariantsInProductMove(productMoveId):
     listings = getListingsForProductMove(productMoveId)

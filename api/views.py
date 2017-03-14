@@ -27,6 +27,7 @@ from api.models.invoice import Invoice, Invoice_serializer
 
 from api.utils import *
 
+
 """
 Print views
 """
@@ -41,14 +42,17 @@ class InvoiceView(TemplateView):
         template_language   = self.kwargs.get('language', None)
 
         invoice             = Invoice.objects.get(id=id)
+        product_variants    = getProductVariantsForInvoice(invoice.id)
 
-        context['id']       = id
-        context['date']     = invoice.date
-        context['state']    = invoice.state
-        context['created']  = invoice.created
-        context['updated']  = invoice.updated
+        context['id']               = id
+        context['date']             = invoice.date
+        context['state']            = invoice.state
+        context['created']          = invoice.created
+        context['updated']          = invoice.updated
+        context['product_variants'] = product_variants 
 
         return context
+
 
 class ProductMoveView(TemplateView):
     template_name = 'product_move-de.html'
@@ -59,19 +63,12 @@ class ProductMoveView(TemplateView):
         id                          = self.kwargs.get('id', None)
         template_language           = self.kwargs.get('language', None)
 
-        pm                          = Product_move.objects.get(id=id)
-        listings                    = getListingsForProductMove(id)
-        pv_ids                      = getProductVariantIdsForListings(listings)
-        product_variants = []
-
-        for p in pv_ids:
-            product = getProductByProductVariantId(p)
-            pv = getObjectInstanceById(Product_variant, p)
-            product_variants.append(product.type+' '+product.name+' '+pv.fabric_1_de)
-
+        product_variants            = getProductVariantsForProductMove(id)
         context['product_variants'] = product_variants
 
         return context
+
+
 """
 API endpoints
 """
