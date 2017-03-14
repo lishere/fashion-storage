@@ -5,6 +5,10 @@
   <section class="meta invisible">
     <h1>This is the invoice template</h1>
 
+    <h2>Related documents</h2>
+
+    PRINT PACKING LIST
+
     <h2>Internal data</h2>
     <strong>State:</strong> {{state}}<br />
     <strong>ID</strong>: {{id}}<br />
@@ -14,7 +18,64 @@
   </section>
 
   <h2 class="invisible">Print section</h2>
-  <section class="print">
-    Rechnungsdatum: {{date}}
-  </section>
+
+  <section>
+    <header>
+
+      VIVALELISA CONTACT DATA<br /><br />
+
+      LOGO<br /><br />
+
+      ANSPRECHPARTNER<br />
+      EMPFÄNGER ADRESSE<br /><br />
+
+      IF STATE = MAHNUNG: PRINT MAHNUNG<br /><br />
+      Rechnungsdatum: {{date}}<br />
+      Rechnungsnummer: RECHNUNGSNUMMER<br />
+      IF REFERENCE PACKING LIST<br />
+        PACKING LIST<br />
+      TYP: DIRECT SALE OR COMMISSION<br /><br />
+    </header>
+    <main>
+
+      Sehr geehrte Damen und Herren,<br /><br />
+
+      ich erlaube mir folgenden Betrag in Rechnung zu stellen:<br /><br />
+
+      SALE<br />
+      SALE VAT<br /><br />
+
+      OTHER ITEMS<br />
+      OTHER ITEMS AMOUNT<br />
+      OTHER ITEMS VAT<br />
+
+      DISCOUNT DESCRIPTION<br />
+      DISCOUNT AMOUNT<br /><br />
+
+      ZWISCHENSUMME<br /><br />
+
+      SHIPPING COSTS<br /><br />
+
+      TOTAL WITH SHIPPING COSTS<br /><br />
+
+      IF OTHER CURRENCY<br />
+        AMOUNT IN CURRENCY OF RECIPIENT'S COUNTRY<br /><br />
+
+
+      AMOUNT IN OTHER CURRENCY<br /><br />
+
+      OTHER TEXT<br /><br />
+
+      IF RECIPIENT NOT IN GERMANY
+      Es handelt sich hierbei um eine steuerfreie Ausfuhrlieferung.<br /><br />
+
+      Bitte um Überweisung innerhalb von 10 Tagen nach Rechnungserhalt auf folgende Kontonummer:<br /><br />
+
+      KONTONUMMER<br /><br />
+
+      Mit bestem Dank und freundlichen Grüßen,<br />
+      Elisa Fossi
+
+    <main>
+  </section> <!-- end main print section -->
 {% endblock content %}

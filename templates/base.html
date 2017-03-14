@@ -6,8 +6,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'print.css' %}" media="print" />
   </head>
   <body>
-    <header>
-    </header>
 
     <section class="operation invisible">
       <a href="javascript:window.print()">Print</a>
@@ -18,7 +16,21 @@
       {% endblock content %}
     </main>
 
-    <footer>
-    </footer>
+    <section class=".footer print">
+      <footer>
+        <div class="col">
+          VIVALELISA CONTACT DATA
+        </div>
+        <div class="col">
+          VIVALELISA OPENING HOURS
+        </div>
+        <div class="col">
+          VIVALELISA BANK DATA
+        </div>
+        <div class="col">
+          VIVALELISA TAX DATA
+        </div>
+      <footer>
+    </section>
   </body>
 </html>
