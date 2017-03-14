@@ -1,0 +1,24 @@
+<html moznomarginboxes mozdisallowselectionprint>
+  <head>
+    {% load static %}
+    <title>Fashion storage</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'general.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'print.css' %}" media="print" />
+  </head>
+  <body>
+    <header>
+    </header>
+
+    <section class="operation invisible">
+      <a href="javascript:window.print()">Print</a>
+    </section>
+
+    <main>
+      {% block content %}
+      {% endblock content %}
+    </main>
+
+    <footer>
+    </footer>
+  </body>
+</html>

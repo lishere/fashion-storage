@@ -8,7 +8,6 @@ from api.models.store import Store
 from api.models.customer import Customer
 from api.models.product_move import Product_move
 
-
 class Sale(models.Model):
 
     SALE_TYPES = (('direct-sale-to-customer','Direct sale to customer'),
@@ -27,6 +26,8 @@ class Sale(models.Model):
     #agency_involved         = models.ForeignKey(Agency, related_name="agencyinvolved", blank=True, null=True)
 
     product_move             = models.ForeignKey(Product_move, blank=True, null=True)
+    # sale_amount
+    # sale
 
 
     def __unicode__(self):

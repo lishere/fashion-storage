@@ -2,6 +2,9 @@
 
 from rest_framework import viewsets
 
+from django.http import HttpResponse
+from django.views.generic import TemplateView
+
 from api.models.core_data import Core_data, Core_data_serializer
 from api.models.customer import Customer, Customer_serializer
 from api.models.country import Country, Country_serializer
@@ -21,6 +24,32 @@ from api.models.image import Image, Image_serializer
 from api.models.stock import Stock, Stock_serializer
 from api.models.packing_list import Packing_list, Packing_list_serializer
 from api.models.invoice import Invoice, Invoice_serializer
+
+
+"""
+Custom views
+"""
+
+import urlparse
+
+class InvoiceView(TemplateView):
+    template_name       = 'invoice-de.html'
+
+    def get_context_data(self, **kwargs):
+        context             = super(InvoiceView, self).get_context_data(**kwargs)
+
+        id                  = self.kwargs.get('id', None)
+        template_language   = self.kwargs.get('language', None)
+
+        invoice             = Invoice.objects.get(id=id)
+
+        context['id']       = id
+        context['date']     = invoice.date
+        context['state']    = invoice.state
+        context['created']  = invoice.created
+        context['updated']  = invoice.updated
+
+        return context
 
 """
 API endpoints

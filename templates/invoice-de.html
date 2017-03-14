@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="meta invisible">
+    <h1>This is the invoice template</h1>
+
+    <h2>Internal data</h2>
+    <strong>State:</strong> {{state}}<br />
+    <strong>ID</strong>: {{id}}<br />
+    <strong>This invoice is a correction for invoice:</strong> {{correction_for}}<br />
+    <strong>Created:</strong> {{created}}<br />
+    <strong>Updated:</strong> {{updated}}<br />
+  </section>
+
+  <h2 class="invisible">Print section</h2>
+  <section class="print">
+    Rechnungsdatum: {{date}}
+  </section>
+{% endblock content %}

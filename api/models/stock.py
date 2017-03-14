@@ -12,8 +12,7 @@ from api.models.listing import Listing
 
 
 # Increment or decrement the number of products in a store's stock.
-# Implemented using Django signals, triggered after a listing is saved.
-#
+# Implemented using Django signals.
 def modify_stock(sender, instance, **kwargs):
 
     # check if a product_move is associated with this listing instance, if not return
@@ -70,6 +69,7 @@ def modify_stock(sender, instance, **kwargs):
                   store_id=product_move.remove_from_id).save()
             print("New stock created and removed "+str(instance.quantity)+" units")
 
+# Using Django Signal to call stock modification function after after a listing is saved.
 post_save.connect(modify_stock, sender=Listing)
 
 
