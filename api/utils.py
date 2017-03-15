@@ -21,7 +21,8 @@ from .models.invoice import Invoice, Invoice_serializer
 
 ##################### General utils
 
-def getObjectInstanceById(type, id):
+# get object providing type and id
+def g(type, id):
     return type.objects.get(id=id)
 
 
@@ -36,7 +37,7 @@ def getProductVariantsForInvoice(invoiceId):
 ##################### Sale utils
 
 def getSaleIdForInvoice(invoiceId):
-    invoice = getObjectInstanceById(Invoice, invoiceId)
+    invoice = g(Invoice, invoiceId)
     return invoice.sale_id
 
 ##################### Product moves and listing utils
@@ -69,6 +70,10 @@ def getProductVariantIdsForListings(listings):
         productVariants.append(pv)
     return productVariants
 
+def getQuantityForProductVariantInListing(productVariantId, listingId):
+    listing = Listing.objects.get(id=listingId, product_variant_id=productVariantId)
+    return listing.quantity
+
 def getProductVariantsForProductMove(productMoveId):
     listings = getListingsForProductMove(productMoveId)
     pv_ids   = getProductVariantIdsForListings(listings)
@@ -76,12 +81,13 @@ def getProductVariantsForProductMove(productMoveId):
     product_variants = []
     for p in pv_ids:
         product = getProductByProductVariantId(p)
-        pv = getObjectInstanceById(Product_variant, p)
+        pv = g(Product_variant, p)
         product_variants.append(
             product.type.capitalize()+' '+
             product.name+' '+
             pv.fabric_1_de+' '+
             pv.size
+            # getQuantityForProductVariantInListing(p, listingId)
         )
     return product_variants
 
@@ -110,5 +116,5 @@ def getProductVariantPriceByStore(productVariantId, storeId):
 ###################### Product utils
 
 def getProductByProductVariantId(productVariantId):
-    pv = getObjectInstanceById(Product_variant, productVariantId)
+    pv = g(Product_variant, productVariantId)
     return Product.objects.get(id=pv.product_id)

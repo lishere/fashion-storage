@@ -10,6 +10,13 @@ from api.models.product_move import Product_move
 
 class Sale(models.Model):
 
+    def getListings(self):
+        from api.utils import getProductMoveIdForSale
+        from api.utils import getProductVariantsForProductMove
+        pv = getProductVariantsForProductMove(getProductMoveIdForSale(self.id))
+        pv = ' ** '.join(pv)
+        return pv
+
     SALE_TYPES = (('direct-sale-to-customer','Direct sale to customer'),
                   ('online-sale','Online sale'),('commission-sale','Commission sale'),
                   ('sale-to-store','Sale to store'),('sale-to-store-via-agency','Sale to store via agency'),

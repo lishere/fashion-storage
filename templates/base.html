@@ -2,35 +2,28 @@
   <head>
     {% load static %}
     <title>Fashion storage</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'general.css' %}" />
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href={% static 'lib/bootstrap/css/bootstrap.min.css' %} rel="stylesheet" media="screen" />
+    <link rel="stylesheet" type="text/css" href="{% static 'all.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'screen.css' %}" media="screen" />
     <link rel="stylesheet" type="text/css" href="{% static 'print.css' %}" media="print" />
   </head>
   <body>
 
-    <section class="operation invisible">
+    <section class="operation no-print">
       <a href="javascript:window.print()">Print</a>
     </section>
 
-    <main>
+    <div class="container-fluid">
       {% block content %}
       {% endblock content %}
-    </main>
+    </div>
 
-    <section class=".footer print">
-      <footer>
-        <div class="col">
-          VIVALELISA CONTACT DATA
-        </div>
-        <div class="col">
-          VIVALELISA OPENING HOURS
-        </div>
-        <div class="col">
-          VIVALELISA BANK DATA
-        </div>
-        <div class="col">
-          VIVALELISA TAX DATA
-        </div>
-      <footer>
-    </section>
+    <script src={% static 'lib/bootstrap/js/bootstrap.min.js' %}></script>
+    <script src={% static 'lib/jquery-3.1.1.min.js' %}></script>
   </body>
 </html>

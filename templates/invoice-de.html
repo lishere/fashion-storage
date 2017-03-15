@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <section class="meta invisible">
+  <section class="meta no-print">
     <h1>This is the invoice template</h1>
 
     <h2>Related documents</h2>
@@ -17,7 +17,7 @@
     <strong>Updated:</strong> {{updated}}<br />
   </section>
 
-  <h2 class="invisible">Print section</h2>
+  <h2 class="no-print">Print section</h2>
 
   <section>
     <header>
@@ -83,5 +83,21 @@
       Elisa Fossi
 
     <main>
+    <section class=".footer print">
+      <footer>
+        <div class="col">
+          VIVALELISA CONTACT DATA
+        </div>
+        <div class="col">
+          VIVALELISA OPENING HOURS
+        </div>
+        <div class="col">
+          VIVALELISA BANK DATA
+        </div>
+        <div class="col">
+          VIVALELISA TAX DATA
+        </div>
+      <footer>
+      </section>
   </section> <!-- end main print section -->
 {% endblock content %}
