@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from django.db import models
+from django.utils.safestring import mark_safe
 from rest_framework import serializers
 
 from api.models.store import Store
@@ -9,13 +10,6 @@ from api.models.customer import Customer
 from api.models.product_move import Product_move
 
 class Sale(models.Model):
-
-    def getListings(self):
-        from api.utils import getProductMoveIdForSale
-        from api.utils import getProductVariantsForProductMove
-        pv = getProductVariantsForProductMove(getProductMoveIdForSale(self.id))
-        pv = ' ** '.join(pv)
-        return pv
 
     SALE_TYPES = (('direct-sale-to-customer','Direct sale to customer'),
                   ('online-sale','Online sale'),('commission-sale','Commission sale'),
@@ -39,6 +33,24 @@ class Sale(models.Model):
 
     def __unicode__(self):
         return '%s %s %s %s' % (self.sale_date, self.sale_type, self.sold_to_store, self.sold_to_customer)
+
+    def getListings(self):
+        from api.utils import getProductMoveIdForSale
+        from api.utils import getProductVariantsForProductMove
+        from api.utils import getViewPathforObject
+
+        product_variants = getProductVariantsForProductMove(getProductMoveIdForSale(self.id))
+        for i, pv in enumerate(product_variants):
+            path = getViewPathforObject('Product_variant', pv[0])
+            product_variants[i] = '<a href="'+path+'">'+pv[1]+'</a>'
+
+        product_variants = '<br />'.join(product_variants)
+
+        return mark_safe(product_variants)
+
+    def editLink(self):
+        from api.utils import getEditLink
+        return mark_safe(getEditLink('Sale', self.id))
 
     class Meta:
         ordering            = ('sale_date',)

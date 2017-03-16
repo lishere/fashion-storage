@@ -19,11 +19,33 @@ from .models.packing_list import Packing_list, Packing_list_serializer
 from .models.invoice import Invoice, Invoice_serializer
 
 
+
 ##################### General utils
 
 # get object providing type and id
 def g(type, id):
     return type.objects.get(id=id)
+
+##################### Get path conventions
+
+def getAdminBasePath():
+    return '/admin/api/'
+
+def getViewBasePath():
+    return '/view/'
+
+def getEditLink(type, id, label='Edit'):
+    path = getAdminChangePathforObject(type, id)
+    return '<a href="'+str(path)+'">'+str(label)+'</a>'
+
+
+def getAdminChangePathforObject(type, id):
+    bp = getAdminBasePath()
+    return str(bp)+str(type).lower()+'/'+str(id)+'/change/'
+
+def getViewPathforObject(type, id, language='en'):
+    bp = getViewBasePath()
+    return str(bp)+str(type).lower()+'s/'+str(language)+'/'+str(id)
 
 
 ##################### Invoice utils
@@ -74,6 +96,8 @@ def getQuantityForProductVariantInListing(productVariantId, listingId):
     listing = Listing.objects.get(id=listingId, product_variant_id=productVariantId)
     return listing.quantity
 
+
+# returns tuple of product_variant ID and text
 def getProductVariantsForProductMove(productMoveId):
     listings = getListingsForProductMove(productMoveId)
     pv_ids   = getProductVariantIdsForListings(listings)
@@ -82,11 +106,11 @@ def getProductVariantsForProductMove(productMoveId):
     for p in pv_ids:
         product = getProductByProductVariantId(p)
         pv = g(Product_variant, p)
-        product_variants.append(
+        product_variants.append([p,
             product.type.capitalize()+' '+
             product.name+' '+
             pv.fabric_1_de+' '+
-            pv.size
+            pv.size]
             # getQuantityForProductVariantInListing(p, listingId)
         )
     return product_variants

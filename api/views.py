@@ -72,12 +72,12 @@ class ProductMoveView(TemplateView):
 
 class SalesTable(tables.Table):
 
-    listings = tables.Column(accessor='getListings', verbose_name='Listings')
+    listings    = tables.Column(accessor='getListings', verbose_name='Listings')
+    edit        = tables.Column(accessor='editLink', verbose_name='Operation')
 
     class Meta:
         model = Sale
-        # pm = getProductVariantsForProductMove(getProductMoveId(6))
-        fields = ('id', 'created', 'updated', 'sale_date', 'sale_type', 'sold_to_store', 'listings')
+        fields = ('id', 'updated', 'sale_date', 'sale_type', 'sold_to_store', 'listings', 'edit')
         attrs = {
             'class': 'table table-striped table-bordered table-hover'
         }
@@ -85,10 +85,7 @@ class SalesTable(tables.Table):
 class StoreSales(SingleTableView):
     template_name   = 'sales.html'
     model           = Sale
-    # pv              = getProductVariantsForProductMove(getProductMoveId(6));
     table_class     = SalesTable
-
-    # pm              = tables.Column(accessor='sale.product_move_id')
     queryset        = Sale.objects.all()
     table           = SalesTable(queryset)
 
