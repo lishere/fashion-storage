@@ -122,17 +122,18 @@ def getProductVariantsForProductMove(productMoveId):
         product     = getProductByProductVariantId(pv_id)
         pv          = g(Product_variant, pv_id)
 
-        product_variants.append([pv_id,
-            product.type.capitalize()+' '+
-            product.name+' '+
-            pv.color_1_en+' '+
-            pv.color_2_en+' '+
-            pv.color_3_en+' '+
-            pv.fabric_1_en+' '+
-            pv.fabric_2_en+' '+
-            pv.size.upper()+' '+
-            '-- Quantity: '+str(quantity)]
-        )
+        if quantity != 0:
+            product_variants.append([pv_id,
+                product.type.capitalize()+' '+
+                product.name+' '+
+                pv.color_1_en+' '+
+                pv.color_2_en+' '+
+                pv.color_3_en+' '+
+                pv.fabric_1_en+' '+
+                pv.fabric_2_en+' '+
+                pv.size.upper()+' '+
+                '-- Quantity: '+str(quantity)]
+            )
 
     return product_variants
 
