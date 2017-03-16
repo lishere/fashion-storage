@@ -28,7 +28,8 @@ from api.models.packing_list import Packing_list, Packing_list_serializer
 from api.models.invoice import Invoice, Invoice_serializer
 
 from api.utils import getProductVariantsForInvoice, getProductVariantsForProductMove
-
+from api.utils import getProductVariantIdsAndListingIdsForListings
+from api.utils import getListingsForProductMove
 
 """
 Print views

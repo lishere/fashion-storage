@@ -38,12 +38,13 @@ def getEditLink(type, id, label='Edit'):
     path = getAdminChangePathforObject(type, id)
     return '<a href="'+str(path)+'">'+str(label)+'</a>'
 
-
 def getAdminChangePathforObject(type, id):
+    type = str(type).replace('_', '-')
     bp = getAdminBasePath()
     return str(bp)+str(type).lower()+'/'+str(id)+'/change/'
 
 def getViewPathforObject(type, id, language='en'):
+    type = str(type).replace('_', '-')
     bp = getViewBasePath()
     return str(bp)+str(type).lower()+'s/'+str(language)+'/'+str(id)
 
@@ -92,31 +93,51 @@ def getProductVariantIdsForListings(listings):
         productVariants.append(pv)
     return productVariants
 
+# returns array of tuples of product variant ID and listing ID
+def getProductVariantIdsAndListingIdsForListings(listings):
+    pv_ids_and_list_ids = []
+    for l in listings:
+        pv_id = getProductVariantIdForListing(l.id)
+        pv_ids_and_list_ids.append([pv_id, l.id])
+    return pv_ids_and_list_ids
+
 def getQuantityForProductVariantInListing(productVariantId, listingId):
     listing = Listing.objects.get(id=listingId, product_variant_id=productVariantId)
     return listing.quantity
 
-
-# returns tuple of product_variant ID and text
+# returns array of tuples of product_variant ID and text
 def getProductVariantsForProductMove(productMoveId):
-    listings = getListingsForProductMove(productMoveId)
-    pv_ids   = getProductVariantIdsForListings(listings)
+
+    from api.utils import getQuantityForProductVariantInListing, getProductByProductVariantId, g
+
+    listings            = getListingsForProductMove(productMoveId)
+    pv_ids_and_list_ids = getProductVariantIdsAndListingIdsForListings(listings)
+    print pv_ids_and_list_ids
 
     product_variants = []
-    for p in pv_ids:
-        product = getProductByProductVariantId(p)
-        pv = g(Product_variant, p)
-        product_variants.append([p,
+    for obj in pv_ids_and_list_ids:
+        pv_id       = obj[0]
+        list_id     = obj[1]
+        quantity    = getQuantityForProductVariantInListing(pv_id, list_id)
+        product     = getProductByProductVariantId(pv_id)
+        pv          = g(Product_variant, pv_id)
+
+        product_variants.append([pv_id,
             product.type.capitalize()+' '+
             product.name+' '+
-            pv.fabric_1_de+' '+
-            pv.size]
-            # getQuantityForProductVariantInListing(p, listingId)
+            pv.color_1_en+' '+
+            pv.color_2_en+' '+
+            pv.color_3_en+' '+
+            pv.fabric_1_en+' '+
+            pv.fabric_2_en+' '+
+            pv.size.upper()+' '+
+            '-- Quantity: '+str(quantity)]
         )
+
     return product_variants
 
-def getProductVariantsInProductMove(productMoveId):
-    listings = getListingsForProductMove(productMoveId)
+# def getProductVariantsInProductMove(productMoveId):
+#     listings = getListingsForProductMove(productMoveId)
 
 def getProductVariantPrice(productVariantId):
     pv = Product_variant.objects.get(id=productVariantId)
