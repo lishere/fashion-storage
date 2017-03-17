@@ -18,6 +18,14 @@ class Product_move(models.Model):
     def __unicode__(self):
         return '%s %s %s' % (self.move_date, self.remove_from, self.move_to)
 
+    def getListings(self):
+        from api.utils import getListingsHtmlForProductMove
+        return getListingsHtmlForProductMove(self.id)
+
+    def editLink(self):
+        from api.utils import getEditLink
+        return getEditLink('Product_move', self.id)
+
     class Meta:
         ordering            = ('move_date',)
         app_label           = 'api'

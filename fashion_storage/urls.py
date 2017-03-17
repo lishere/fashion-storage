@@ -7,9 +7,7 @@ from django.contrib import admin
 from rest_framework import routers
 from api import views
 
-from api.views import InvoiceView
-from api.views import ProductMoveView
-from api.views import StoreSales
+from api.views import InvoiceView, ProductMovesView, SalesView, StocksView
 
 router = routers.DefaultRouter()
 router.register(r'core-data', views.CoreDataViewSet)
@@ -34,8 +32,9 @@ router.register(r'invoices', views.ImageViewSet)
 
 urlpatterns = [
     url(r'^view/invoices/(?P<language>[a-z][a-z])/(?P<id>[0-9]+)', InvoiceView.as_view()),
-    url(r'^view/product-moves/(?P<language>[a-z][a-z])/(?P<id>[0-9]+)', ProductMoveView.as_view()),
-    url(r'^view/sales', StoreSales.as_view()),
+    url(r'^view/product-moves', ProductMovesView.as_view()),
+    url(r'^view/stocks', StocksView.as_view()),
+    url(r'^view/sales', SalesView.as_view()),
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
 ]

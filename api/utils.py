@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+from django.utils.safestring import mark_safe
+
 from .models.core_data import Core_data
 from .models.country import Country
 from .models.store import Store
@@ -19,7 +23,6 @@ from .models.packing_list import Packing_list, Packing_list_serializer
 from .models.invoice import Invoice, Invoice_serializer
 
 
-
 ##################### General utils
 
 # get object providing type and id
@@ -34,14 +37,22 @@ def getAdminBasePath():
 def getViewBasePath():
     return '/view/'
 
-def getEditLink(type, id, label='Edit'):
+def getEditLink(type, id):
     path = getAdminChangePathforObject(type, id)
-    return '<a href="'+str(path)+'">'+str(label)+'</a>'
+    return mark_safe('<a href="'+str(path)+'" target="_blank">Edit</a>')
+
+def getAddLink(type):
+    path = getAdminAddPathforObject(type)
+    type = str(type).replace('_', '-')
+    return mark_safe('<a href="'+str(path)+'" target="_blank">Add '+str(type).lower().replace('_', '-')+'</a>')
 
 def getAdminChangePathforObject(type, id):
-    type = str(type).replace('_', '-')
     bp = getAdminBasePath()
     return str(bp)+str(type).lower()+'/'+str(id)+'/change/'
+
+def getAdminAddPathforObject(type):
+    bp = getAdminBasePath()
+    return str(bp)+str(type).lower()+'/add/'
 
 def getViewPathforObject(type, id, language='en'):
     type = str(type).replace('_', '-')
@@ -137,8 +148,23 @@ def getProductVariantsForProductMove(productMoveId):
 
     return product_variants
 
-# def getProductVariantsInProductMove(productMoveId):
-#     listings = getListingsForProductMove(productMoveId)
+def getListingsHtmlForProductMove(productMoveId):
+    product_variants = getProductVariantsForProductMove(productMoveId)
+    for i, pv in enumerate(product_variants):
+        path = getViewPathforObject('Product_variant', pv[0])
+        product_variants[i] = '<a href="'+path+'">'+pv[1]+'</a>'
+
+    product_variants = '<br />'.join(product_variants)
+    return mark_safe(product_variants)
+
+def getListingsHtmlForSale(saleId):
+    product_variants = getProductVariantsForProductMove(getProductMoveIdForSale(saleId))
+    for i, pv in enumerate(product_variants):
+        path = getViewPathforObject('Product_variant', pv[0])
+        product_variants[i] = '<a href="'+path+'">'+pv[1]+'</a>'
+
+    product_variants = '<br />'.join(product_variants)
+    return mark_safe(product_variants)
 
 def getProductVariantPrice(productVariantId):
     pv = Product_variant.objects.get(id=productVariantId)

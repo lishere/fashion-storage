@@ -1,5 +1,7 @@
 
-.no-print {
+.no-print,
+th.edit,
+td.edit {
   display: none;
 }
 

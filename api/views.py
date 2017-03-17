@@ -4,8 +4,8 @@ from rest_framework import viewsets
 
 from django.http import HttpResponse
 from django.views.generic import TemplateView
-import django_tables2 as tables
-from django_tables2 import SingleTableView
+from django_tables2 import SingleTableView, RequestConfig
+from django_filters.views import FilterView
 
 from api.models.core_data import Core_data, Core_data_serializer
 from api.models.customer import Customer, Customer_serializer
@@ -27,9 +27,21 @@ from api.models.stock import Stock, Stock_serializer
 from api.models.packing_list import Packing_list, Packing_list_serializer
 from api.models.invoice import Invoice, Invoice_serializer
 
-from api.utils import getProductVariantsForInvoice, getProductVariantsForProductMove
-from api.utils import getProductVariantIdsAndListingIdsForListings
-from api.utils import getListingsForProductMove
+from api.utils import getProductVariantsForInvoice, getProductVariantsForProductMove, getProductVariantIdsAndListingIdsForListings, getListingsForProductMove
+
+from api.tables import *
+from api.filters import *
+
+
+# """
+# Generic views
+# """
+#
+# class FilterTableView(FilterView, SingleTableView):
+#     def get_table_data(self):
+#         self.filter = self.filter_class(self.request.GET, queryset =super(FilterTableView, self).get_table_data() )
+#         return self.filter.qs
+#
 
 """
 Print views
@@ -57,43 +69,60 @@ class InvoiceView(TemplateView):
         return context
 
 
-class ProductMoveView(TemplateView):
-    template_name = 'product_move-de.html'
+# class ProductMoveView(TemplateView):
+#     template_name = 'product_move-de.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context                     = super(ProductMoveView, self).get_context_data(**kwargs)
+#
+#         id                          = self.kwargs.get('id', None)
+#         template_language           = self.kwargs.get('language', None)
+#
+#         product_variants            = getProductVariantsForProductMove(id)
+#         context['product_variants'] = product_variants
+#
+#         return context
 
-    def get_context_data(self, **kwargs):
-        context                     = super(ProductMoveView, self).get_context_data(**kwargs)
+"""
+List views
+"""
 
-        id                          = self.kwargs.get('id', None)
-        template_language           = self.kwargs.get('language', None)
+class ProductMovesView(SingleTableView):
+    template_name   = 'product_moves.html'
+    model           = Product_move
+    table_class     = ProductMovesTable
 
-        product_variants            = getProductVariantsForProductMove(id)
-        context['product_variants'] = product_variants
-
-        return context
-
-class SalesTable(tables.Table):
-
-    listings    = tables.Column(accessor='getListings', verbose_name='Listings')
-    edit        = tables.Column(accessor='editLink', verbose_name='Operation')
-
-    class Meta:
-        model = Sale
-        fields = ('id', 'updated', 'sale_date', 'sale_type', 'sold_to_store', 'listings', 'edit')
-        attrs = {
-            'class': 'table table-striped table-bordered table-hover'
-        }
-
-class StoreSales(SingleTableView):
+class SalesView(SingleTableView):
     template_name   = 'sales.html'
     model           = Sale
     table_class     = SalesTable
-    queryset        = Sale.objects.all()
-    table           = SalesTable(queryset)
 
+class StocksView(SingleTableView):
+    template_name   = 'stocks.html'
+    model           = Stock
+    table_class     = StocksTable
+    filter_class    = StocksFilter
+
+    def get_table_data(self):
+        data = super(StocksView, self).get_table_data()
+        self.filter = self.filter_class(self.request.GET, queryset=data)
+        return self.filter.qs
+
+    def get_context_data(self, **kwargs):
+        context = super(StocksView, self).get_context_data(**kwargs)
+        context['filter'] = self.filter.form
+        return context
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(StocksView, self).get_context_data(**kwargs)
+    #     f = StocksFilter(self.request.GET, queryset=Stock.objects.get(id=12) , request=self.request )
+    #     context['form'] = f.form
+    #     return context
 
 """
 API endpoints
 """
+
 class CoreDataViewSet(viewsets.ModelViewSet):
     queryset = Core_data.objects.all().order_by('created')
     serializer_class = Core_data_serializer

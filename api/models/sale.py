@@ -35,22 +35,12 @@ class Sale(models.Model):
         return '%s %s %s %s' % (self.sale_date, self.sale_type, self.sold_to_store, self.sold_to_customer)
 
     def getListings(self):
-        from api.utils import getProductMoveIdForSale
-        from api.utils import getProductVariantsForProductMove
-        from api.utils import getViewPathforObject
-
-        product_variants = getProductVariantsForProductMove(getProductMoveIdForSale(self.id))
-        for i, pv in enumerate(product_variants):
-            path = getViewPathforObject('Product_variant', pv[0])
-            product_variants[i] = '<a href="'+path+'">'+pv[1]+'</a>'
-
-        product_variants = '<br />'.join(product_variants)
-
-        return mark_safe(product_variants)
+        from api.utils import getListingsHtmlForSale
+        return getListingsHtmlForSale(self.id)
 
     def editLink(self):
         from api.utils import getEditLink
-        return mark_safe(getEditLink('Sale', self.id))
+        return getEditLink('Sale', self.id)
 
     class Meta:
         ordering            = ('sale_date',)

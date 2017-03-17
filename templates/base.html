@@ -1,6 +1,8 @@
-<html moznomarginboxes mozdisallowselectionprint>
+
+{% load static %}
+
+<html>
   <head>
-    {% load static %}
     <title>Fashion storage</title>
 
     <meta charset="utf-8">
@@ -14,9 +16,7 @@
   </head>
   <body>
 
-    <section class="operation no-print">
-      <a href="javascript:window.print()">Print</a>
-    </section>
+    {% include 'partials/_menu.html' %}
 
     <div class="container-fluid">
       {% block content %}

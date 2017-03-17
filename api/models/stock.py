@@ -3,6 +3,7 @@
 from datetime import datetime
 from django.db import models
 from django.db.models.signals import post_save
+from django.utils.safestring import mark_safe
 from rest_framework import serializers
 
 from api.models.product_move import Product_move
@@ -84,6 +85,10 @@ class Stock(models.Model):
 
     def __unicode__(self):
         return '%s %s %s %s' % (self.id, self.store, self.product_variant, self.quantity)
+
+    def editLink(self):
+        from api.utils import getEditLink
+        return mark_safe(getEditLink('Stock', self.id))
 
     class Meta:
         ordering            = ('created',)
